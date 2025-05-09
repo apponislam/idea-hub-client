@@ -1,28 +1,54 @@
-import { Home, Lightbulb, User } from "lucide-react";
-
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Home, Lightbulb, User, Users } from "lucide-react";
 import Link from "next/link";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-// Menu items.
-const items = [
+const allItems = [
     {
         title: "Home",
         url: "/dashboard",
         icon: Home,
+        roles: ["ADMIN", "MEMBER"],
     },
     {
         title: "My Idea",
         url: "/dashboard/myidea",
         icon: Lightbulb,
+        roles: ["MEMBER", "ADMIN"],
+    },
+    {
+        title: "manage Ideas",
+        url: "/dashboard/manageidees",
+        icon: Lightbulb,
+        roles: ["ADMIN"],
+    },
+    {
+        title: "Manage Users",
+        url: "/dashboard/manageusers",
+        icon: Users,
+        roles: ["ADMIN"],
     },
     {
         title: "Profile",
         url: "/dashboard/profile",
         icon: User,
+        roles: ["ADMIN", "MEMBER"],
     },
 ];
 
-export function AppSidebar() {
+export async function AppSidebar() {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+        redirect("/login");
+    }
+
+    const role = session?.user?.role;
+
+    const filteredItems = allItems.filter((item) => item.roles.includes(role || ""));
+
     return (
         <Sidebar>
             <SidebarContent>
@@ -32,7 +58,7 @@ export function AppSidebar() {
                     </Link>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {items.map((item) => (
+                            {filteredItems.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <a href={item.url}>

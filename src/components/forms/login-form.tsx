@@ -48,8 +48,7 @@ export function LoginForm() {
 
             // Optional: Store token in localStorage if still needed elsewhere
             // if (result?.url) {
-            //     const session = await getSession();
-            //     if (session?.user?.accessToken) {
+            //     if (result?.data?.accessToken) {
             //         localStorage.setItem("accessToken", session.user.accessToken);
             //     }
             // }
