@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 
 export async function getMainNav() {
     const session = await getServerSession(authOptions);
-    console.log(session);
 
     const mainNavIfLoggedOut = [
         { title: "Ideas", href: "/ideas" },

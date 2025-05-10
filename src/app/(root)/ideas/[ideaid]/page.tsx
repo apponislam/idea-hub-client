@@ -1,16 +1,17 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageSquare } from "lucide-react";
 import { ImageCarousel } from "@/components/ImageCarouselSingleIdea";
 import { VoteButtons } from "@/components/VoteButtons";
+import { getCurrentVote } from "@/components/actions/vote";
+import CommentItem from "./commnetItem";
+import { AddCommentForm } from "./AddCommentForm";
 
+// Shared interfaces - should match exactly with commentItem.tsx
 interface User {
     id: string;
     name: string;
     email: string;
-    image?: string | null;
+    image: string | null; // Changed from optional to required
 }
 
 interface Category {
@@ -42,7 +43,7 @@ interface Comment {
     createdAt: string;
     updatedAt: string;
     user: User;
-    replies: Comment[];
+    replies?: Comment[]; // Made optional to match both files
 }
 
 interface Idea {
@@ -95,17 +96,31 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
 
     const idea = response.data;
 
-    // Safely process comments
+    // Process comments hierarchically
     const comments = idea.comments || [];
-    const topLevelComments = comments.filter((comment) => !comment.parentCommentId);
-    const commentReplies = comments
-        .filter((comment) => comment.parentCommentId)
-        .reduce((acc, comment) => {
-            const parentId = comment.parentCommentId!;
-            acc[parentId] = acc[parentId] || [];
-            acc[parentId].push(comment);
-            return acc;
-        }, {} as Record<string, Comment[]>);
+    const commentMap = new Map<string, Comment>();
+    const topLevelComments: Comment[] = [];
+
+    // First pass: create map of all comments
+    comments.forEach((comment) => {
+        // Use the existing replies if they exist in the raw data
+        const replies = "replies" in comment ? comment.replies : [];
+        commentMap.set(comment.id, { ...comment, replies: replies || [] });
+    });
+
+    // Second pass: build hierarchy
+    comments.forEach((comment) => {
+        if (comment.parentCommentId) {
+            const parent = commentMap.get(comment.parentCommentId);
+            if (parent && parent.replies) {
+                parent.replies.push(commentMap.get(comment.id)!);
+            }
+        } else {
+            topLevelComments.push(commentMap.get(comment.id)!);
+        }
+    });
+
+    const currentVote = await getCurrentVote(params.ideaid);
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -164,27 +179,7 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
                 )}
             </div>
 
-            {/* Voting */}
-            {/* <div className="flex items-center gap-4 mb-8">
-                <form action={`/api/ideas/${idea.id}/vote`} method="POST">
-                    <input type="hidden" name="voteType" value="UPVOTE" />
-                    <Button variant="outline" className="flex items-center gap-2" type="submit">
-                        <ArrowBigUp className="h-4 w-4" />
-                        <span>{idea.upvotes}</span>
-                    </Button>
-                </form>
-
-                <form action={`/api/ideas/${idea.id}/vote`} method="POST">
-                    <input type="hidden" name="voteType" value="DOWNVOTE" />
-                    <Button variant="outline" className="flex items-center gap-2" type="submit">
-                        <ArrowBigDown className="h-4 w-4" />
-                        <span>{idea.downvotes}</span>
-                    </Button>
-                </form>
-            </div> */}
-
-            {/* <VoteButtons ideaId={idea.id} initialUpvotes={idea.upvotes} initialDownvotes={idea.downvotes} refetchIdea={fetchIdea} /> */}
-            <VoteButtons ideaId={idea.id} initialUpvotes={idea.upvotes} initialDownvotes={idea.downvotes} />
+            <VoteButtons ideaId={idea.id} initialUpvotes={idea.upvotes} initialDownvotes={idea.downvotes} initialUserVote={currentVote?.data?.type || null} />
 
             {/* Comments Section */}
             <div className="mb-8">
@@ -193,63 +188,15 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
                     Comments ({idea._count.comments})
                 </h2>
 
-                {/* Add Comment */}
+                {/* Add Comment Form */}
                 <div className="mb-6">
-                    <form action={`/api/ideas/${idea.id}/comment`} method="POST" className="space-y-2">
-                        <Input name="content" placeholder="Add a comment..." className="flex-1" required />
-                        <Button type="submit">Post Comment</Button>
-                    </form>
+                    <div className="mb-6">
+                        <AddCommentForm ideaId={idea.id} />
+                    </div>
                 </div>
 
                 {/* Comments List */}
-                <div className="space-y-6">
-                    {topLevelComments.map((comment) => (
-                        <CommentItem key={comment.id} comment={comment} replies={commentReplies[comment.id] || []} ideaId={idea.id} />
-                    ))}
-
-                    {topLevelComments.length === 0 && <p className="text-muted-foreground text-center py-4">No comments yet. Be the first to comment!</p>}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const CommentItem = ({ comment, replies, ideaId }: { comment: Comment; replies: Comment[]; ideaId: string }) => {
-    return (
-        <div className="flex gap-3">
-            <Avatar className="h-10 w-10 flex-shrink-0">
-                <AvatarImage src={comment.user.image || undefined} />
-                <AvatarFallback>{comment.user.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-
-            <div className="flex-1">
-                <div className="bg-muted/50 rounded-lg p-4">
-                    <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center gap-2">
-                            <span className="font-medium">{comment.user.name}</span>
-                            <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleString()}</span>
-                        </div>
-                    </div>
-
-                    <p className="mb-3 whitespace-pre-line">{comment.content}</p>
-
-                    <form action={`/api/ideas/${ideaId}/comment`} method="POST" className="mt-2 flex gap-2">
-                        <input type="hidden" name="parentCommentId" value={comment.id} />
-                        <Input name="content" placeholder="Write a reply..." className="flex-1" required />
-                        <Button variant="outline" size="sm" type="submit">
-                            Reply
-                        </Button>
-                    </form>
-                </div>
-
-                {/* Replies */}
-                {replies.length > 0 && (
-                    <div className="mt-4 pl-6 border-l-2 border-muted">
-                        {replies.map((reply) => (
-                            <CommentItem key={reply.id} comment={reply} replies={[]} ideaId={ideaId} />
-                        ))}
-                    </div>
-                )}
+                <div className="space-y-6">{topLevelComments.length > 0 ? topLevelComments.map((comment) => <CommentItem key={comment.id} comment={comment} ideaId={idea.id} />) : <p className="text-muted-foreground text-center py-4">No comments yet. Be the first to comment!</p>}</div>
             </div>
         </div>
     );
