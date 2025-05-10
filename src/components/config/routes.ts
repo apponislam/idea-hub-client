@@ -6,7 +6,7 @@ export async function getMainNav() {
     console.log(session);
 
     const mainNavIfLoggedOut = [
-        { title: "Idea", href: "/idea" },
+        { title: "Ideas", href: "/ideas" },
         { title: "Blog", href: "/blog" },
         { title: "Dashboard", href: "/dashboard" },
         { title: "Login", href: "/login" },
@@ -14,7 +14,7 @@ export async function getMainNav() {
     ];
 
     const mainNavIfLoggedIn = [
-        { title: "Idea", href: "/idea" },
+        { title: "Ideas", href: "/ideas" },
         { title: "Blog", href: "/blog" },
         { title: "Dashboard", href: "/dashboard" },
         { title: "My Profile", href: "/profile" },

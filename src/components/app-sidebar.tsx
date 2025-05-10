@@ -20,7 +20,7 @@ const allItems = [
     },
     {
         title: "Manage Ideas",
-        url: "/dashboard/manageidees",
+        url: "/dashboard/manageideas",
         icon: Lightbulb,
         roles: ["ADMIN"],
     },

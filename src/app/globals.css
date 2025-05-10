@@ -121,3 +121,17 @@
         @apply bg-background text-foreground;
     }
 }
+
+.embla__container {
+    backface-visibility: hidden;
+    display: flex;
+    touch-action: pan-y;
+    margin-left: calc(1rem * -1);
+}
+
+.embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    padding-left: 1rem;
+    position: relative;
+}
