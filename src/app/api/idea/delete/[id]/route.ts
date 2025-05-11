@@ -10,7 +10,7 @@ export async function DELETE(request: Request, { params }: { params: Params }) {
     const { id } = await params;
 
     try {
-        const res = await fetch(`http://localhost:5000/api/v1/idea/${id}`, {
+        const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/${id}`, {
             method: "DELETE",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,

@@ -51,7 +51,7 @@ const IdeaPage2 = () => {
         const fetchIdeas = async () => {
             try {
                 setLoading(true);
-                const res = await fetch("http://localhost:5000/api/v1/idea");
+                const res = await fetch("https://idea-hub-server.vercel.app/api/v1/idea");
                 if (!res.ok) {
                     throw new Error("Failed to fetch ideas");
                 }

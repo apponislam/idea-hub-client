@@ -115,7 +115,7 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
                 console.log(values);
                 console.log(status);
 
-                const response = await fetch("http://localhost:5000/api/v1/idea", {
+                const response = await fetch("https://idea-hub-server.vercel.app/api/v1/idea", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

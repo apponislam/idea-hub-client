@@ -32,7 +32,7 @@ export default async function MyIdeasPage({ searchParams }: { searchParams: Sear
 
     if (sessionToken) {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/idea/my-ideas?page=${page}&limit=${limit}`, {
+            const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/my-ideas?page=${page}&limit=${limit}`, {
                 headers: {
                     Cookie: `next-auth.session-token=${sessionToken}`,
                 },
