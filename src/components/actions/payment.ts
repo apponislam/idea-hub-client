@@ -37,3 +37,26 @@ export const verifyPurchaseAndRedirect = async (ideaId: string) => {
         redirect(`/ideas/${ideaId}/payfirst`);
     }
 };
+
+export const getMyPurchases = async () => {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("next-auth.session-token")?.value;
+
+    if (!sessionToken) {
+        throw new Error("Not authenticated");
+    }
+
+    const response = await fetch(`http://localhost:5000/api/v1/payment/my-purchases`, {
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: `next-auth.session-token=${sessionToken}`,
+        },
+        next: { tags: ["user-purchases"] },
+    });
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    return await response.json();
+};

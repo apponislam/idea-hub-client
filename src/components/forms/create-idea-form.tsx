@@ -107,36 +107,6 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
         }
     };
 
-    // const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    //     setIsSubmitting(true);
-    //     try {
-    //         const response = await fetch("http://localhost:5000/api/v1/idea", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             credentials: "include",
-    //             body: JSON.stringify({
-    //                 ...values,
-    //                 status,
-    //             }),
-    //         });
-
-    //         console.log(response);
-
-    //         if (!response.ok) throw new Error("Failed to create idea");
-
-    //         const idea = await response.json();
-    //         console.log(idea);
-    //         toast.success("Idea created successfully!");
-    //         router.push("/dashboard/myidea");
-    //     } catch (error) {
-    //         toast.error(error instanceof Error ? error.message : "An error occurred");
-    //     } finally {
-    //         setIsSubmitting(false);
-    //     }
-    // };
-
     const onSubmitWithStatus =
         (status: IdeaStatus): SubmitHandler<FormValues> =>
         async (values) => {
@@ -366,37 +336,12 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
 
                     {/* Submit Buttons */}
                     <div className="flex gap-4">
-                        {/* <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => {
-                                form.setValue("status", IdeaStatus.DRAFT);
-                                form.handleSubmit(onSubmit)();
-                            }}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Save Draft
-                        </Button>
-                        <Button
-                            type="button"
-                            onClick={() => {
-                                form.setValue("status", IdeaStatus.PENDING);
-                                setTimeout(() => {
-                                    form.handleSubmit(onSubmit)();
-                                });
-                            }}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Submit for Review
-                        </Button> */}
                         <Button type="button" variant="outline" onClick={form.handleSubmit(onSubmitWithStatus(IdeaStatus.DRAFT))} disabled={isSubmitting}>
                             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Save Draft
                         </Button>
 
-                        <Button type="button" onClick={form.handleSubmit(onSubmitWithStatus(IdeaStatus.PENDING))} disabled={isSubmitting}>
+                        <Button type="button" onClick={form.handleSubmit(onSubmitWithStatus(IdeaStatus.UNDER_REVIEW))} disabled={isSubmitting}>
                             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Submit for Review
                         </Button>

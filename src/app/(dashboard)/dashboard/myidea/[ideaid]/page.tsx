@@ -135,22 +135,24 @@ export default async function IdeaPage({ params }: { params: { ideaid: string } 
                     )}
                 </div>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <Link href={`/dashboard/myidea/${idea.id}/edit`}>
-                            <DropdownMenuItem className="cursor-pointer">
-                                <Edit className="mr-2 h-4 w-4" />
-                                <span>Edit Idea</span>
-                            </DropdownMenuItem>
-                        </Link>
-                        <DeleteIdeaButton id={idea.id} asDropdownItem />
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                {idea.status === "APPROVED" || (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <Link href={`/dashboard/myidea/${idea.id}/edit`}>
+                                <DropdownMenuItem className="cursor-pointer">
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    <span>Edit Idea</span>
+                                </DropdownMenuItem>
+                            </Link>
+                            <DeleteIdeaButton id={idea.id} asDropdownItem />
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )}
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
@@ -266,17 +268,19 @@ export default async function IdeaPage({ params }: { params: { ideaid: string } 
                         </Card>
                     )}
 
-                    <div className="flex gap-4">
-                        <Link href={`/dashboard/myidea/${idea.id}/edit`} className="w-full">
-                            <Button variant="outline" className="w-full">
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit Idea
-                            </Button>
-                        </Link>
-                        <div className="w-full">
-                            <DeleteIdeaButton id={idea.id} />
+                    {idea.status === "APPROVED" || (
+                        <div className="flex gap-4">
+                            <Link href={`/dashboard/myidea/${idea.id}/edit`} className="w-full">
+                                <Button variant="outline" className="w-full">
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    Edit Idea
+                                </Button>
+                            </Link>
+                            <div className="w-full">
+                                <DeleteIdeaButton id={idea.id} />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

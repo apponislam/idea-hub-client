@@ -30,3 +30,27 @@ export const createComment = async (ideaId: string, content: string, parentComme
     revalidateTag(`idea-${ideaId}`);
     return await response.json();
 };
+
+export const deleteComment = async (commentId: string, ideaId: string) => {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("next-auth.session-token")?.value;
+
+    if (!sessionToken) {
+        throw new Error("Not authenticated");
+    }
+
+    const response = await fetch(`http://localhost:5000/api/v1/comment/${commentId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: `next-auth.session-token=${sessionToken}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    revalidateTag(`idea-${ideaId}`);
+    return await response.json();
+};

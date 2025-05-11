@@ -1,4 +1,4 @@
-import { Home, Lightbulb, List, User, Users } from "lucide-react";
+import { Home, Lightbulb, List, ShoppingCart, User, Users } from "lucide-react";
 import Link from "next/link";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { getServerSession } from "next-auth";
@@ -16,6 +16,12 @@ const allItems = [
         title: "My Idea",
         url: "/dashboard/myidea",
         icon: Lightbulb,
+        roles: ["MEMBER", "ADMIN"],
+    },
+    {
+        title: "My Purchases",
+        url: "/dashboard/mypurchases",
+        icon: ShoppingCart,
         roles: ["MEMBER", "ADMIN"],
     },
     {

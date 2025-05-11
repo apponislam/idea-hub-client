@@ -15,7 +15,8 @@ interface User {
     id: string;
     name: string;
     email: string;
-    image: string | null; // Changed from optional to required
+    image: string | null;
+    role?: string;
 }
 
 interface Category {
@@ -74,6 +75,7 @@ interface Idea {
     };
     upvotes: number;
     downvotes: number;
+    commentCount?: number;
 }
 
 interface ApiResponse {
@@ -200,7 +202,8 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
             <div className="mb-8">
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <MessageSquare className="h-5 w-5" />
-                    Comments ({idea._count.comments})
+                    {/* Comments ({idea._count.comments}) */}
+                    Comments ({idea.commentCount})
                 </h2>
 
                 {/* Add Comment Form */}
@@ -211,7 +214,23 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
                 </div>
 
                 {/* Comments List */}
-                <div className="space-y-6">{topLevelComments.length > 0 ? topLevelComments.map((comment) => <CommentItem key={comment.id} comment={comment} ideaId={idea.id} />) : <p className="text-muted-foreground text-center py-4">No comments yet. Be the first to comment!</p>}</div>
+                <div className="space-y-6">
+                    {topLevelComments.length > 0 ? (
+                        topLevelComments.map((comment) => (
+                            <CommentItem
+                                key={comment.id}
+                                comment={comment}
+                                ideaId={idea.id}
+                                currentUser={{
+                                    id: session?.user.id,
+                                    role: session?.user.role,
+                                }}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-muted-foreground text-center py-4">No comments yet. Be the first to comment!</p>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -5,8 +5,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { createComment } from "@/components/actions/comments";
-import { Reply } from "lucide-react";
+import { createComment, deleteComment } from "@/components/actions/comments";
+import { Reply, Trash2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 interface User {
@@ -33,11 +33,18 @@ interface CommentItemProps {
     comment: Comment;
     ideaId: string;
     depth?: number;
+    currentUser?: {
+        id?: string;
+        role?: string;
+    };
 }
 
-const CommentItem = ({ comment, ideaId, depth = 0 }: CommentItemProps) => {
+const CommentItem = ({ comment, ideaId, depth = 0, currentUser }: CommentItemProps) => {
     const [isReplying, setIsReplying] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const canDelete = currentUser && (currentUser.id === comment.userId || currentUser.role === "ADMIN");
 
     const handleReply = async (formData: FormData) => {
         setIsSubmitting(true);
@@ -52,6 +59,20 @@ const CommentItem = ({ comment, ideaId, depth = 0 }: CommentItemProps) => {
             toast.error(error instanceof Error ? error.message : "Failed to post reply", { id: toastId });
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const handleDelete = async () => {
+        setIsDeleting(true);
+        const toastId = toast.loading("Deleting comment...");
+
+        try {
+            await deleteComment(comment.id, ideaId);
+            toast.success("Comment deleted successfully", { id: toastId });
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Failed to delete comment", { id: toastId });
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -83,6 +104,12 @@ const CommentItem = ({ comment, ideaId, depth = 0 }: CommentItemProps) => {
                             <Reply className="h-4 w-4 mr-2" />
                             Reply
                         </Button>
+                        {canDelete && (
+                            <Button variant="ghost" size="sm" onClick={handleDelete} className="text-sm text-muted-foreground hover:text-destructive" disabled={isDeleting}>
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                {isDeleting ? "Deleting..." : "Delete"}
+                            </Button>
+                        )}
                     </div>
                 </div>
 
@@ -99,7 +126,16 @@ const CommentItem = ({ comment, ideaId, depth = 0 }: CommentItemProps) => {
                 {comment.replies && comment.replies.length > 0 && (
                     <div className={`mt-3 ${depth > 0 ? "pl-4 border-l-2 border-muted" : ""}`}>
                         {comment.replies.map((reply) => (
-                            <CommentItem key={reply.id} comment={reply} ideaId={ideaId} depth={depth + 1} />
+                            <CommentItem
+                                key={reply.id}
+                                comment={reply}
+                                ideaId={ideaId}
+                                depth={depth + 1}
+                                currentUser={{
+                                    id: currentUser?.id,
+                                    role: currentUser?.role,
+                                }}
+                            />
                         ))}
                     </div>
                 )}

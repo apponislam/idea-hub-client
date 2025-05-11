@@ -123,7 +123,7 @@ export default function UpdateIdeaForm({ ideaId, defaultValues, categories, isAd
             return ["PENDING", "UNDER_REVIEW", "APPROVED", "REJECTED"];
         }
         // Regular users can only move from DRAFT to PENDING
-        return currentStatus === "DRAFT" ? ["DRAFT", "PENDING"] : [currentStatus];
+        return currentStatus === "DRAFT" ? ["DRAFT", "UNDER_REVIEW"] : [currentStatus];
     };
 
     const availableStatuses = getAvailableStatuses();
@@ -366,7 +366,7 @@ export default function UpdateIdeaForm({ ideaId, defaultValues, categories, isAd
                                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                     Save Draft
                                 </Button>
-                                <Button type="submit" onClick={() => form.setValue("status", "PENDING")} disabled={isSubmitting}>
+                                <Button type="submit" onClick={() => form.setValue("status", "UNDER_REVIEW")} disabled={isSubmitting}>
                                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                     Submit for Review
                                 </Button>
