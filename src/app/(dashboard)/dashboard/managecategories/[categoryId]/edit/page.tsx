@@ -7,12 +7,14 @@ import { ChevronLeft, Save } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-interface PageProps {
-    params: { id: string };
-}
+type Params = Promise<{ categoryId: string }>;
 
-export default async function EditCategoryPage({ params }: PageProps) {
-    const response = await getCategory(params.id);
+export default async function EditCategoryPage({ params }: { params: Params }) {
+    const { categoryId } = await params;
+
+    console.log("Category ID:", categoryId);
+
+    const response = await getCategory(categoryId);
 
     if (!response.data) {
         redirect("/dashboard/managecategories");
@@ -36,7 +38,7 @@ export default async function EditCategoryPage({ params }: PageProps) {
                     <form
                         action={async (formData) => {
                             "use server";
-                            await updateCategory(params.id, formData);
+                            await updateCategory(categoryId, formData);
                             redirect("/dashboard/managecategories");
                         }}
                         className="space-y-4"

@@ -140,7 +140,7 @@ const IdeaPage = () => {
             <h1 className="text-3xl font-bold mb-8">Browse Ideas</h1>
 
             {/* Search and Filter Form */}
-            <form className="mb-8 flex flex-col md:flex-row gap-4" action="/ideas" method="GET">
+            <form className="mb-8 flex flex-col md:flex-row gap-4" action="/" method="GET">
                 <Input placeholder="Search by keyword..." className="flex-1" name="search" defaultValue={searchTerm} />
                 <Select name="category" defaultValue={selectedCategory}>
                     <SelectTrigger className="w-[180px]">
@@ -221,7 +221,7 @@ const IdeaPage = () => {
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
-                                <PaginationPrevious href={`/ideas?${buildQueryString({ page: Math.max(1, currentPage - 1).toString() })}`} isActive={currentPage > 1} />
+                                <PaginationPrevious href={`/?${buildQueryString({ page: Math.max(1, currentPage - 1).toString() })}`} isActive={currentPage > 1} />
                             </PaginationItem>
 
                             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -238,7 +238,7 @@ const IdeaPage = () => {
 
                                 return (
                                     <PaginationItem key={pageNum}>
-                                        <PaginationLink href={`/ideas?${buildQueryString({ page: pageNum.toString() })}`} isActive={pageNum === currentPage}>
+                                        <PaginationLink href={`/?${buildQueryString({ page: pageNum.toString() })}`} isActive={pageNum === currentPage}>
                                             {pageNum}
                                         </PaginationLink>
                                     </PaginationItem>
@@ -246,7 +246,7 @@ const IdeaPage = () => {
                             })}
 
                             <PaginationItem>
-                                <PaginationNext href={`/ideas?${buildQueryString({ page: Math.min(totalPages, currentPage + 1).toString() })}`} isActive={currentPage < totalPages} />
+                                <PaginationNext href={`/?${buildQueryString({ page: Math.min(totalPages, currentPage + 1).toString() })}`} isActive={currentPage < totalPages} />
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>

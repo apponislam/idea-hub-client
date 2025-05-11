@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import UpdateIdeaForm from "./update-idea-form";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 
 async function getIdea(ideaId: string) {
     const cookieStore = await cookies();
@@ -27,12 +27,16 @@ async function getCategories() {
     return res.json();
 }
 
-export default async function EditIdeaPage({ params }: { params: { ideaid: string } }) {
+type Params = Promise<{ ideaid: string }>;
+
+export default async function EditIdeaPage({ params }: { params: Params }) {
     const session = await getServerSession(authOptions);
     // console.log(session?.user.role);
 
+    const { ideaid } = await params;
+
     try {
-        const [ideaResponse, categories] = await Promise.all([getIdea(params.ideaid), getCategories()]);
+        const [ideaResponse, categories] = await Promise.all([getIdea(ideaid), getCategories()]);
 
         const idea = ideaResponse.data;
         const maincategories = categories?.data || categories || [];
@@ -50,7 +54,7 @@ export default async function EditIdeaPage({ params }: { params: { ideaid: strin
             status: idea.status,
         };
 
-        return <UpdateIdeaForm ideaId={params.ideaid} defaultValues={defaultValues} categories={maincategories} isAdmin={session?.user.role === "ADMIN"} />;
+        return <UpdateIdeaForm ideaId={ideaid} defaultValues={defaultValues} categories={maincategories} isAdmin={session?.user.role === "ADMIN"} />;
     } catch (error) {
         console.error(error);
         redirect("/dashboard/myidea");

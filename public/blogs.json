@@ -1,0 +1,454 @@
+{
+    "posts": [
+        {
+            "id": "blog-101",
+            "title": "Top 10 Web Development Trends for 2024",
+            "slug": "web-dev-trends-2024",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Lead Developer at TechFuture Inc."
+            },
+            "content": "<article><h2>The web development landscape is evolving rapidly</h2><p>Here are the key trends...</p></article>",
+            "excerpt": "Discover the technologies shaping modern web development",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Emerging web technologies collage"
+            },
+            "category": "Web Development",
+            "tags": ["javascript", "trends", "react"],
+            "publishedAt": "2024-01-15T08:30:00Z",
+            "updatedAt": "2024-01-20T11:15:00Z",
+            "stats": {
+                "views": 8421,
+                "likes": 324,
+                "comments": 87
+            },
+            "readingTime": "12 min",
+            "seo": {
+                "description": "Comprehensive analysis of 2024's most impactful web technologies",
+                "keywords": ["web development", "trends", "javascript"]
+            }
+        },
+        {
+            "id": "blog-102",
+            "title": "Optimizing React Applications for Peak Performance",
+            "slug": "react-optimization",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "React Specialist with 8 years experience"
+            },
+            "content": "<article><h2>Performance matters more than ever</h2><p>Start with code splitting...</p></article>",
+            "excerpt": "Proven techniques to make your React apps blazing fast",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Speedometer with React logo"
+            },
+            "category": "Frontend",
+            "tags": ["react", "performance", "javascript"],
+            "publishedAt": "2024-02-05T09:00:00Z",
+            "updatedAt": "2024-02-10T14:20:00Z",
+            "stats": {
+                "views": 5678,
+                "likes": 289,
+                "comments": 64
+            },
+            "readingTime": "15 min",
+            "seo": {
+                "description": "Advanced React performance optimization techniques",
+                "keywords": ["react", "performance", "frontend"]
+            }
+        },
+        {
+            "id": "blog-103",
+            "title": "Mastering CSS Grid: A Complete Guide",
+            "slug": "css-grid-guide",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "CSS Expert and UI Designer"
+            },
+            "content": "<article><h2>CSS Grid changes everything</h2><p>Here's how to use it effectively...</p></article>",
+            "excerpt": "From basics to advanced techniques in CSS Grid",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "CSS Grid layout example"
+            },
+            "category": "CSS",
+            "tags": ["css", "layout", "design"],
+            "publishedAt": "2024-03-12T10:15:00Z",
+            "updatedAt": "2024-03-15T16:45:00Z",
+            "stats": {
+                "views": 4321,
+                "likes": 198,
+                "comments": 42
+            },
+            "readingTime": "18 min",
+            "seo": {
+                "description": "Complete guide to CSS Grid layout system",
+                "keywords": ["css", "grid", "layout"]
+            }
+        },
+        {
+            "id": "blog-104",
+            "title": "Migrating to TypeScript: A Step-by-Step Guide",
+            "slug": "typescript-migration",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "TypeScript Core Contributor"
+            },
+            "content": "<article><h2>Why TypeScript matters</h2><p>Migration process explained...</p></article>",
+            "excerpt": "How to transition your JavaScript project to TypeScript",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "TypeScript logo transformation"
+            },
+            "category": "JavaScript",
+            "tags": ["typescript", "javascript", "migration"],
+            "publishedAt": "2024-04-01T07:30:00Z",
+            "updatedAt": "2024-04-05T12:10:00Z",
+            "stats": {
+                "views": 3892,
+                "likes": 176,
+                "comments": 39
+            },
+            "readingTime": "20 min",
+            "seo": {
+                "description": "Practical guide for JavaScript to TypeScript migration",
+                "keywords": ["typescript", "migration", "javascript"]
+            }
+        },
+        {
+            "id": "blog-105",
+            "title": "Node.js Best Practices for 2024",
+            "slug": "nodejs-best-practices",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Node.js Technical Lead"
+            },
+            "content": "<article><h2>Building robust Node.js applications</h2><p>Error handling strategies...</p></article>",
+            "excerpt": "Essential patterns for production-grade Node.js apps",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Node.js architecture diagram"
+            },
+            "category": "Backend",
+            "tags": ["nodejs", "backend", "javascript"],
+            "publishedAt": "2024-02-18T11:45:00Z",
+            "updatedAt": "2024-02-25T09:30:00Z",
+            "stats": {
+                "views": 5123,
+                "likes": 243,
+                "comments": 57
+            },
+            "readingTime": "14 min",
+            "seo": {
+                "description": "Current Node.js best practices for professional developers",
+                "keywords": ["nodejs", "backend", "best practices"]
+            }
+        },
+        {
+            "id": "blog-106",
+            "title": "Web Accessibility: A Practical Guide",
+            "slug": "web-accessibility-guide",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Accessibility Advocate and Engineer"
+            },
+            "content": "<article><h2>Why accessibility matters</h2><p>Implementing ARIA labels...</p></article>",
+            "excerpt": "Making your websites usable for everyone",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Accessibility symbols collage"
+            },
+            "category": "Web Development",
+            "tags": ["accessibility", "a11y", "inclusive"],
+            "publishedAt": "2024-01-30T13:20:00Z",
+            "updatedAt": "2024-02-05T15:40:00Z",
+            "stats": {
+                "views": 3245,
+                "likes": 167,
+                "comments": 35
+            },
+            "readingTime": "16 min",
+            "seo": {
+                "description": "Practical web accessibility implementation guide",
+                "keywords": ["accessibility", "a11y", "web"]
+            }
+        },
+        {
+            "id": "blog-107",
+            "title": "Docker for Frontend Developers",
+            "slug": "docker-frontend",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "DevOps Specialist"
+            },
+            "content": "<article><h2>Why frontend devs need Docker</h2><p>Containerizing your React app...</p></article>",
+            "excerpt": "Simplifying development environments with containers",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Docker containers with frontend tools"
+            },
+            "category": "DevOps",
+            "tags": ["docker", "frontend", "containers"],
+            "publishedAt": "2024-03-05T08:15:00Z",
+            "updatedAt": "2024-03-10T11:25:00Z",
+            "stats": {
+                "views": 2876,
+                "likes": 154,
+                "comments": 31
+            },
+            "readingTime": "12 min",
+            "seo": {
+                "description": "Docker essentials for frontend developers",
+                "keywords": ["docker", "frontend", "containers"]
+            }
+        },
+        {
+            "id": "blog-108",
+            "title": "State Management Solutions Compared",
+            "slug": "state-management-comparison",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Frontend Architect"
+            },
+            "content": "<article><h2>The state management landscape</h2><p>Redux vs Zustand vs Jotai...</p></article>",
+            "excerpt": "Choosing the right state management for your project",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "State management library logos"
+            },
+            "category": "Frontend",
+            "tags": ["react", "state", "redux"],
+            "publishedAt": "2024-04-10T09:30:00Z",
+            "updatedAt": "2024-04-15T14:50:00Z",
+            "stats": {
+                "views": 4987,
+                "likes": 231,
+                "comments": 63
+            },
+            "readingTime": "17 min",
+            "seo": {
+                "description": "Comparison of modern state management solutions",
+                "keywords": ["state management", "redux", "react"]
+            }
+        },
+        {
+            "id": "blog-109",
+            "title": "Getting Started with Web3 Development",
+            "slug": "web3-introduction",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Blockchain Developer"
+            },
+            "content": "<article><h2>The Web3 ecosystem explained</h2><p>Setting up your first smart contract...</p></article>",
+            "excerpt": "Beginner's guide to decentralized applications",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Blockchain technology visualization"
+            },
+            "category": "Blockchain",
+            "tags": ["web3", "blockchain", "ethereum"],
+            "publishedAt": "2024-02-22T14:00:00Z",
+            "updatedAt": "2024-02-28T10:45:00Z",
+            "stats": {
+                "views": 6123,
+                "likes": 287,
+                "comments": 72
+            },
+            "readingTime": "19 min",
+            "seo": {
+                "description": "Introduction to Web3 development concepts",
+                "keywords": ["web3", "blockchain", "dapps"]
+            }
+        },
+        {
+            "id": "blog-110",
+            "title": "Mobile-First Development Strategies",
+            "slug": "mobile-first-development",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Mobile Web Specialist"
+            },
+            "content": "<article><h2>Why mobile-first matters</h2><p>Responsive design techniques...</p></article>",
+            "excerpt": "Building websites that excel on mobile devices",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Devices showing responsive design"
+            },
+            "category": "Mobile",
+            "tags": ["responsive", "mobile", "css"],
+            "publishedAt": "2024-03-18T10:30:00Z",
+            "updatedAt": "2024-03-25T13:15:00Z",
+            "stats": {
+                "views": 3789,
+                "likes": 201,
+                "comments": 48
+            },
+            "readingTime": "14 min",
+            "seo": {
+                "description": "Complete guide to mobile-first development",
+                "keywords": ["mobile", "responsive", "design"]
+            }
+        },
+        {
+            "id": "blog-111",
+            "title": "GraphQL vs REST: When to Use Each",
+            "slug": "graphql-vs-rest",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "API Architect"
+            },
+            "content": "<article><h2>The API debate continues</h2><p>Performance comparisons...</p></article>",
+            "excerpt": "Choosing the right API approach for your project",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "GraphQL and REST logos"
+            },
+            "category": "Backend",
+            "tags": ["graphql", "rest", "api"],
+            "publishedAt": "2024-01-25T12:15:00Z",
+            "updatedAt": "2024-01-30T16:20:00Z",
+            "stats": {
+                "views": 4567,
+                "likes": 213,
+                "comments": 59
+            },
+            "readingTime": "16 min",
+            "seo": {
+                "description": "Technical comparison of GraphQL and REST APIs",
+                "keywords": ["graphql", "rest", "api"]
+            }
+        },
+        {
+            "id": "blog-112",
+            "title": "Career Advice for Junior Developers",
+            "slug": "junior-dev-advice",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Senior Engineering Manager"
+            },
+            "content": "<article><h2>Navigating your early career</h2><p>Building your network...</p></article>",
+            "excerpt": "Practical tips for new developers",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Career growth ladder"
+            },
+            "category": "Career",
+            "tags": ["career", "advice", "junior"],
+            "publishedAt": "2024-04-05T11:00:00Z",
+            "updatedAt": "2024-04-12T09:45:00Z",
+            "stats": {
+                "views": 5234,
+                "likes": 276,
+                "comments": 68
+            },
+            "readingTime": "11 min",
+            "seo": {
+                "description": "Essential career advice for new developers",
+                "keywords": ["career", "junior", "advice"]
+            }
+        },
+        {
+            "id": "blog-113",
+            "title": "Testing Strategies for React Applications",
+            "slug": "react-testing",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "QA Automation Expert"
+            },
+            "content": "<article><h2>Testing pyramid for React</h2><p>Jest and Testing Library examples...</p></article>",
+            "excerpt": "Comprehensive testing approach for React apps",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Testing workflow diagram"
+            },
+            "category": "Testing",
+            "tags": ["react", "testing", "jest"],
+            "publishedAt": "2024-02-08T13:45:00Z",
+            "updatedAt": "2024-02-15T10:30:00Z",
+            "stats": {
+                "views": 3421,
+                "likes": 189,
+                "comments": 41
+            },
+            "readingTime": "18 min",
+            "seo": {
+                "description": "Complete testing strategy for React developers",
+                "keywords": ["react", "testing", "jest"]
+            }
+        },
+        {
+            "id": "blog-114",
+            "title": "Animation Performance in Modern Browsers",
+            "slug": "animation-performance",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "UI Performance Specialist"
+            },
+            "content": "<article><h2>Smooth animations matter</h2><p>CSS vs JavaScript performance...</p></article>",
+            "excerpt": "Creating buttery-smooth web animations",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Animation performance metrics"
+            },
+            "category": "Performance",
+            "tags": ["animation", "css", "performance"],
+            "publishedAt": "2024-03-22T15:30:00Z",
+            "updatedAt": "2024-03-29T12:15:00Z",
+            "stats": {
+                "views": 2987,
+                "likes": 167,
+                "comments": 37
+            },
+            "readingTime": "15 min",
+            "seo": {
+                "description": "Optimizing web animation performance",
+                "keywords": ["animation", "performance", "css"]
+            }
+        },
+        {
+            "id": "blog-115",
+            "title": "Managing Monorepos with Modern Tools",
+            "slug": "monorepo-management",
+            "author": {
+                "name": "Appon Islam",
+                "avatar": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746784714/tjpdrutw9xltoeb0qjdn.jpg",
+                "bio": "Build Systems Engineer"
+            },
+            "content": "<article><h2>Why monorepos?</h2><p>Turborepo vs Nx comparison...</p></article>",
+            "excerpt": "Effective strategies for monorepo architecture",
+            "coverImage": {
+                "url": "https://res.cloudinary.com/dqkx3gcnm/image/upload/v1746991263/epqllewpkr4k4dyj79tu.jpg",
+                "alt": "Monorepo structure diagram"
+            },
+            "category": "Tooling",
+            "tags": ["monorepo", "turborepo", "nx"],
+            "publishedAt": "2024-04-15T10:00:00Z",
+            "updatedAt": "2024-04-22T14:50:00Z",
+            "stats": {
+                "views": 4123,
+                "likes": 198,
+                "comments": 53
+            },
+            "readingTime": "20 min",
+            "seo": {
+                "description": "Modern monorepo management techniques",
+                "keywords": ["monorepo", "turborepo", "nx"]
+            }
+        }
+    ]
+}

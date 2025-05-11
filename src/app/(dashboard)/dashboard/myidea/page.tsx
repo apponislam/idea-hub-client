@@ -14,9 +14,16 @@ interface Idea {
     price: number | null;
 }
 
-export default async function MyIdeasPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-    const page = Number(searchParams.page) || 1;
-    const limit = Number(searchParams.limit) || 10;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function MyIdeasPage({ searchParams }: { searchParams: SearchParams }) {
+    const params = await searchParams;
+
+    const page = Number(params.page ?? 1);
+    const limit = Number(params.limit ?? 10);
+
+    // const page = Number(searchParams.page) || 1;
+    // const limit = Number(searchParams.limit) || 10;
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 

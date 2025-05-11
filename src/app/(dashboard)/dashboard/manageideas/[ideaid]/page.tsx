@@ -55,11 +55,15 @@ async function getIdea(ideaId: string) {
     return res.json();
 }
 
-export default async function IdeaPage({ params }: { params: { ideaid: string } }) {
+type Params = Promise<{ ideaid: string }>;
+
+export default async function IdeaPage({ params }: { params: Params }) {
     let idea: Idea | null = null;
 
+    const { ideaid } = await params;
+
     try {
-        const response = await getIdea(params.ideaid);
+        const response = await getIdea(ideaid);
         idea = response.data;
     } catch (error) {
         console.log(error);

@@ -7,8 +7,8 @@ import CommentItem from "./commnetItem";
 import { AddCommentForm } from "./AddCommentForm";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { verifyPurchaseAndRedirect } from "@/components/actions/payment";
+import { authOptions } from "@/lib/authOptions";
 
 // Shared interfaces - should match exactly with commentItem.tsx
 interface User {
@@ -92,10 +92,15 @@ const fetchIdea = async (id: string): Promise<ApiResponse> => {
     return res.json();
 };
 
-const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
+type Params = Promise<{ ideaid: string }>;
+
+const IdeaPage = async ({ params }: { params: Params }) => {
     let response: ApiResponse;
+
+    const { ideaid } = await params;
+
     try {
-        response = await fetchIdea(params.ideaid);
+        response = await fetchIdea(ideaid);
     } catch (error) {
         return <div className="container mx-auto p-4">Error loading idea: {(error as Error).message}</div>;
     }
@@ -137,7 +142,7 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
         }
     });
 
-    const currentVote = await getCurrentVote(params.ideaid);
+    const currentVote = await getCurrentVote(ideaid);
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">

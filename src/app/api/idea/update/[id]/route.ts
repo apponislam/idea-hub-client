@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>;
+
+export async function PATCH(req: NextRequest, { params }: { params: Params }) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
+    const { id } = await params;
+
     const data = await req.json();
 
-    const res = await fetch(`http://localhost:5000/api/v1/idea/${params.id}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/idea/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

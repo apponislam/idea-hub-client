@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>;
+
+export async function DELETE(request: Request, { params }: { params: Params }) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
+    const { id } = await params;
+
     try {
-        const res = await fetch(`http://localhost:5000/api/v1/idea/${params.id}`, {
+        const res = await fetch(`http://localhost:5000/api/v1/idea/${id}`, {
             method: "DELETE",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
