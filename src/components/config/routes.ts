@@ -16,7 +16,7 @@ export async function getMainNav() {
         { title: "Ideas", href: "/ideas" },
         { title: "Blog", href: "/blog" },
         { title: "Dashboard", href: "/dashboard" },
-        { title: "My Profile", href: "/profile" },
+        { title: "My Profile", href: "/dashboard/profile" },
     ];
 
     const mainNav = session ? mainNavIfLoggedIn : mainNavIfLoggedOut;

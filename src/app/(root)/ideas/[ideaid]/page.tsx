@@ -5,6 +5,10 @@ import { VoteButtons } from "@/components/VoteButtons";
 import { getCurrentVote } from "@/components/actions/vote";
 import CommentItem from "./commnetItem";
 import { AddCommentForm } from "./AddCommentForm";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { verifyPurchaseAndRedirect } from "@/components/actions/payment";
 
 // Shared interfaces - should match exactly with commentItem.tsx
 interface User {
@@ -96,14 +100,25 @@ const IdeaPage = async ({ params }: { params: { ideaid: string } }) => {
 
     const idea = response.data;
 
-    // Process comments hierarchically
+    const session = await getServerSession(authOptions);
+    const user = session?.user;
+    console.log(user);
+
+    if (idea.isPaid) {
+        if (!user) {
+            redirect("/login");
+        }
+        const hasPurchased = await verifyPurchaseAndRedirect(idea.id);
+        if (!hasPurchased) {
+            redirect(`/ideas/${idea.id}/payfirst`);
+        }
+    }
+
     const comments = idea.comments || [];
     const commentMap = new Map<string, Comment>();
     const topLevelComments: Comment[] = [];
 
-    // First pass: create map of all comments
     comments.forEach((comment) => {
-        // Use the existing replies if they exist in the raw data
         const replies = "replies" in comment ? comment.replies : [];
         commentMap.set(comment.id, { ...comment, replies: replies || [] });
     });
