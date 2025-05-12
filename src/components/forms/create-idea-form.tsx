@@ -123,10 +123,7 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
 
                 const response = await createIdea(othervalues, status);
 
-                // const data = await response.json();
                 console.log(response);
-
-                // if (!response.ok) throw new Error("Failed to create idea");
 
                 toast.success("Idea created successfully!");
                 router.push("/dashboard/myidea");

@@ -59,7 +59,7 @@ export async function deleteUser(userId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/deactivate`, {
+    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/delete`, {
         method: "DELETE",
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
