@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IdeaHub Client - Sustainability Idea Sharing Platform
 
-## Getting Started
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://idea-hub-client.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.2-blue)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-blue)](https://react.dev/)
 
-First, run the development server:
+The frontend for IdeaHub, a community platform where users can share and discuss sustainability ideas. Built with Next.js, Tailwind CSS, and NextAuth.js.
+
+## Features
+
+-   **User Authentication**: Secure login with NextAuth.js
+-   **Idea Management**: Create, view, and interact with sustainability ideas
+-   **Voting System**: Upvote/downvote ideas (Reddit-style)
+-   **Comments**: Nested comment system for discussions
+-   **Responsive Design**: Works on all device sizes
+-   **Modern UI**: Built with Radix UI and Tailwind CSS
+
+## Live Demo
+
+The application is live at: [https://idea-hub-client.vercel.app/](https://idea-hub-client.vercel.app/)
+
+## Database Schema
+
+![Database Diagram](https://i.ibb.co.com/j9PQq4T6/Blank-diagram.png)
+
+## Installation
 
 ```bash
+
+# Clone the repository
+
+git clone https://github.com/yourusername/idea-hub-client.git
+
+# Navigate to the project directory
+
+cd idea-hub-client
+
+# Install dependencies
+
+npm install
+
+# Set up environment variables
+
+Create a .env file based on .env.example
+
+# Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file in the root directory with the following variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
 
-## Learn More
+# Next.js Client Configuration
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_CLOUD_NAME=dqkx3gcnm
+NEXT_PUBLIC_BASE_API="http://localhost:5000"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# NextAuth.js Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXTAUTH_SECRET="your-strong-secret-here"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-## Deploy on Vercel
+## Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-   **Framework**: Next.js 15
+-   **Styling**: Tailwind CSS
+-   **UI Components**: Radix UI, ShadCN
+-   **Animation**: Framer Motion
+-   **Form Management**: React Hook Form + Zod
+-   **Authentication**: NextAuth.js
+-   **State Management**: React Context
+-   **Icons**: Lucide React
+-   **Notifications**: Sonner
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Available Scripts
+
+```bash
+
+# Run development server
+
+npm run dev
+
+# Build for production
+
+npm run build
+
+# Start production server
+
+npm run start
+
+# Lint code
+
+npm run lint
+```
+
+## Dependencies
+
+See the full list in [package.json](#) (link to your package.json if hosted)
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Contact
+
+For any questions or suggestions, please contact [Appon Islam] at [11appon11@gmail.com].
