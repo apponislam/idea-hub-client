@@ -108,12 +108,6 @@ export default async function MembersPage() {
                     </Link>
                     <h1 className="text-2xl font-bold">Members Management</h1>
                 </div>
-                <Link href="/dashboard/manageusers">
-                    <Button>
-                        <UserPlus className="mr-2 h-4 w-4" />
-                        Invite Member
-                    </Button>
-                </Link>
             </div>
 
             <Card>
@@ -136,7 +130,7 @@ export default async function MembersPage() {
                         <TableBody>
                             {members.map((member) => (
                                 <TableRow key={member.id}>
-                                    <TableCell className="flex items-center gap-3">
+                                    <TableCell className="flex items-center gap-3 w-40">
                                         <div className="flex-shrink-0">
                                             {member.image ? (
                                                 <Image src={member.image} alt={member.name} width={32} height={32} className="h-8 w-8 rounded-full" />

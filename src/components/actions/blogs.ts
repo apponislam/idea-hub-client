@@ -2,7 +2,7 @@ import { BlogData } from "@/app/types/blogs";
 
 export async function getBlogData(): Promise<BlogData> {
     try {
-        const response = await fetch("http://localhost:3000/blogs.json");
+        const response = await fetch("https://idea-hub-client.vercel.app/blogs.json");
         if (!response.ok) {
             throw new Error("Failed to fetch blog data");
         }
