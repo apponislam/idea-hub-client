@@ -80,7 +80,7 @@ const MyPurchasesPage = () => {
             <div className="flex flex-col items-center justify-center min-h-screen gap-4">
                 <div className="text-center max-w-md p-4">
                     <h2 className="text-xl font-bold mb-2">No purchases yet</h2>
-                    <p className="text-muted-foreground mb-4">You haven`&apos;`t made any purchases yet. Explore ideas to get started!</p>
+                    <p className="text-muted-foreground mb-4">You haven&apos;t made any purchases yet. Explore ideas to get started!</p>
                     <Button asChild>
                         <Link href="/ideas">Browse Ideas</Link>
                     </Button>

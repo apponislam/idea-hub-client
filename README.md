@@ -56,7 +56,7 @@ Create a `.env` file in the root directory with the following variables:
 
 # Next.js Client Configuration
 
-NEXT_PUBLIC_CLOUD_NAME=dqkx3gcnm
+NEXT_PUBLIC_CLOUD_NAME="cloudinary cloud name"
 NEXT_PUBLIC_BASE_API="http://localhost:5000"
 
 # NextAuth.js Configuration

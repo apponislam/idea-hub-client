@@ -99,7 +99,7 @@ export default async function IdeaPage({ params }: { params: Params }) {
                 </div>
                 <Card>
                     <CardContent className="p-6 text-center">
-                        <p className="text-muted-foreground">The idea you`&apos;`re looking for does not exist.</p>
+                        <p className="text-muted-foreground">The idea you&apos;re looking for does not exist.</p>
                     </CardContent>
                 </Card>
             </div>

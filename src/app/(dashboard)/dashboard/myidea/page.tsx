@@ -89,7 +89,7 @@ export default async function MyIdeasPage({ searchParams }: { searchParams: Sear
                 </>
             ) : (
                 <div className="bg-muted rounded-lg p-8 text-center">
-                    <p className="text-muted-foreground mb-4">You haven`&apos;`t created any ideas yet</p>
+                    <p className="text-muted-foreground mb-4">You haven&apos;t created any ideas yet</p>
                     <Link href="/dashboard/myidea/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />

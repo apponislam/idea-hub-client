@@ -72,7 +72,7 @@ export default function PaymentPage() {
             <div className="flex flex-col items-center justify-center min-h-screen gap-4">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />
                 <p className="text-lg font-medium">Preparing your payment...</p>
-                <p className="text-sm text-muted-foreground">This won`&apos;`t take long</p>
+                <p className="text-sm text-muted-foreground">This won&apos;t take long</p>
             </div>
         );
     }

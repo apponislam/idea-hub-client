@@ -143,7 +143,7 @@ const IdeaPage = () => {
             <form className="mb-8 flex flex-col md:flex-row gap-4" action="/ideas" method="GET">
                 <Input placeholder="Search by keyword..." className="flex-1" name="search" defaultValue={searchTerm} />
                 <Select name="category" defaultValue={selectedCategory}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-full md:w-52">
                         <SelectValue placeholder="Filter by category" />
                     </SelectTrigger>
                     <SelectContent>
