@@ -64,7 +64,7 @@ const IdeaPage = () => {
         const fetchIdeas = async () => {
             try {
                 setLoading(true);
-                const url = new URL("http://localhost:5000/api/v1/idea");
+                const url = new URL("https://idea-hub-server.vercel.app/api/v1/idea");
 
                 if (searchTerm) {
                     url.searchParams.append("search", searchTerm);
