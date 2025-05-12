@@ -99,6 +99,9 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
 
             const data = await response.json();
             form.setValue("images", [...form.getValues("images"), data.secure_url]);
+
+            // Clear the file input after successful upload
+            event.target.value = ""; // This is the key fix
         } catch (error) {
             console.error(error);
             toast.error("Couldn't upload image, please try again");
