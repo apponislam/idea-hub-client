@@ -13,6 +13,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { createIdea } from "@/app/(dashboard)/dashboard/myidea/create/createIdea";
 
 enum IdeaStatus {
     DRAFT = "DRAFT",
@@ -115,24 +116,18 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
         async (values) => {
             setIsSubmitting(true);
             try {
-                console.log(values);
+                const { status, ...othervalues } = values;
+
                 console.log(status);
+                console.log(othervalues);
 
-                const response = await fetch("https://idea-hub-server.vercel.app/api/v1/idea", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        ...values,
-                        status, // <-- Injected correctly
-                    }),
-                });
+                const response = await createIdea(othervalues, status);
 
-                if (!response.ok) throw new Error("Failed to create idea");
+                // const data = await response.json();
+                console.log(response);
 
-                // const idea = await response.json();
+                // if (!response.ok) throw new Error("Failed to create idea");
+
                 toast.success("Idea created successfully!");
                 router.push("/dashboard/myidea");
             } catch (error) {
