@@ -112,7 +112,7 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
     };
 
     const onSubmitWithStatus =
-        (status: IdeaStatus): SubmitHandler<FormValues> =>
+        (newStatus: IdeaStatus): SubmitHandler<FormValues> =>
         async (values) => {
             setIsSubmitting(true);
             try {
@@ -121,7 +121,7 @@ export default function CreateIdeaPage({ categories }: { categories: Category[] 
                 console.log(status);
                 console.log(othervalues);
 
-                const response = await createIdea(othervalues, status);
+                const response = await createIdea(othervalues, newStatus);
 
                 console.log(response);
 
