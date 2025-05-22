@@ -86,3 +86,22 @@ export async function getUsers() {
     revalidatePath("/dashboard/manageusers");
     return res.json();
 }
+
+export async function getUser(userId: string) {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("next-auth.session-token")?.value;
+
+    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}`, {
+        headers: {
+            Cookie: `next-auth.session-token=${sessionToken}`,
+        },
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch user (ID: ${userId})`);
+    }
+
+    // revalidatePath(`/dashboard/profile`);
+    return res.json();
+}

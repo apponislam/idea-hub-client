@@ -24,7 +24,7 @@ export function WhyChooseUs() {
     ];
 
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-950">
+        <section className="w-full py-12 md:py-24 lg:py-32  ">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <Badge variant="outline" className="px-4 py-1 rounded-full bg-emerald-100 text-emerald-800">
@@ -50,7 +50,7 @@ export function WhyChooseUs() {
 
                 <div className="mt-12 flex flex-col items-center gap-4">
                     <Link href="/register">
-                        <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700">
+                        <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
                             Join Our Community
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
