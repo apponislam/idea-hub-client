@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ImageCarousel } from "@/components/ImageCarousel";
+import { Skeleton } from "./ui/skeleton";
 
 interface Category {
     id: string;
@@ -74,8 +75,43 @@ const IdeaPage2 = () => {
     if (loading) {
         return (
             <div className="container mx-auto px-4 py-8">
-                <div className="flex justify-center items-center h-64">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                <h1 className="text-3xl font-bold mb-8">Top Voted Ideas</h1>
+
+                {/* Skeleton Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[...Array(3)].map((_, index) => (
+                        <Card key={index} className="flex flex-col h-full p-0">
+                            {/* Image Skeleton */}
+                            <div className="relative aspect-video">
+                                <Skeleton className="h-full w-full rounded-t-lg" />
+                            </div>
+
+                            {/* Content Skeleton */}
+                            <div className="p-4 flex flex-col flex-1">
+                                <CardHeader className="p-0">
+                                    <div className="flex justify-between items-start">
+                                        <Skeleton className="h-6 w-3/4" />
+                                        <Skeleton className="h-6 w-10" />
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-4 w-16" />
+                                    </div>
+                                </CardHeader>
+
+                                <CardContent className="p-0 mt-4 flex-1 space-y-2">
+                                    <Skeleton className="h-4 w-full" />
+                                    <Skeleton className="h-4 w-5/6" />
+                                    <Skeleton className="h-4 w-4/6" />
+                                </CardContent>
+
+                                <CardFooter className="mt-4 flex justify-between items-center p-0 pt-4 border-t border-muted-foreground/10">
+                                    <Skeleton className="h-4 w-24" />
+                                    <Skeleton className="h-9 w-24" />
+                                </CardFooter>
+                            </div>
+                        </Card>
+                    ))}
                 </div>
             </div>
         );
@@ -107,7 +143,7 @@ const IdeaPage2 = () => {
                         {/* Image */}
                         <div className="relative">
                             <ImageCarousel images={idea.images} />
-                            {idea.isPaid && <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded-md text-sm z-10">Premium</div>}
+                            {idea.isPaid && <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded-md text-sm z-10 dark:bg-black">Premium</div>}
                         </div>
 
                         {/* Content */}

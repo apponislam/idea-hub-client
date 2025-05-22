@@ -7,7 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 
 export const HeroBanner = () => {
     return (
-        <section className="relative w-full h-[80vh] max-h-[900px] overflow-hidden rounded-2xl">
+        <section className="relative w-full h-[70vh] max-h-[900px] overflow-hidden rounded-2xl">
             <div className="absolute inset-0 z-0">
                 <Image src="/banner.jpeg" alt="Sustainable future" fill className="object-cover" priority quality={100} />
                 {/* <div className="absolute inset-0 bg-gradient-to-r from-green-900/85 to-green-800/70" /> */}

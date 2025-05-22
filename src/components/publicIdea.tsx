@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageCarousel } from "@/components/ImageCarousel";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Skeleton } from "./ui/skeleton";
 
 interface Category {
     id: string;
@@ -43,11 +41,6 @@ interface IdeasResponse {
     success: boolean;
     message: string;
     data: Idea[];
-    meta?: {
-        page: number;
-        limit: number;
-        total: number;
-    };
 }
 
 const IdeaPage = () => {
@@ -55,29 +48,11 @@ const IdeaPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const searchParams = useSearchParams();
-    const searchTerm = searchParams.get("search") || "";
-    const selectedCategory = searchParams.get("category") || "all";
-    const currentPage = Number(searchParams.get("page")) || 1;
-
     useEffect(() => {
         const fetchIdeas = async () => {
             try {
                 setLoading(true);
-                const url = new URL("https://idea-hub-server.vercel.app/api/v1/idea");
-
-                if (searchTerm) {
-                    url.searchParams.append("search", searchTerm);
-                }
-
-                if (selectedCategory && selectedCategory !== "all") {
-                    url.searchParams.append("category", selectedCategory);
-                }
-
-                url.searchParams.append("page", currentPage.toString());
-                url.searchParams.append("limit", "9");
-
-                const res = await fetch(url.toString());
+                const res = await fetch("https://idea-hub-server.vercel.app/api/v1/idea?limit=6");
                 if (!res.ok) {
                     throw new Error("Failed to fetch ideas");
                 }
@@ -91,13 +66,53 @@ const IdeaPage = () => {
         };
 
         fetchIdeas();
-    }, [searchTerm, selectedCategory, currentPage]);
+    }, []);
 
     if (loading) {
         return (
             <div className="container mx-auto px-4 py-8">
-                <div className="flex justify-center items-center h-64">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                <h1 className="text-3xl font-bold mb-8">Featured Ideas</h1>
+
+                {/* Skeleton Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[...Array(6)].map((_, index) => (
+                        <Card key={index} className="flex flex-col h-full p-0">
+                            {/* Image Skeleton */}
+                            <div className="relative aspect-video">
+                                <Skeleton className="h-full w-full rounded-t-lg" />
+                            </div>
+
+                            {/* Content Skeleton */}
+                            <div className="p-4 flex flex-col flex-1">
+                                <CardHeader className="p-0">
+                                    <div className="flex justify-between items-start">
+                                        <Skeleton className="h-6 w-3/4" />
+                                        <Skeleton className="h-6 w-10" />
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-4 w-16" />
+                                    </div>
+                                </CardHeader>
+
+                                <CardContent className="p-0 mt-4 flex-1 space-y-2">
+                                    <Skeleton className="h-4 w-full" />
+                                    <Skeleton className="h-4 w-5/6" />
+                                    <Skeleton className="h-4 w-4/6" />
+                                </CardContent>
+
+                                <CardFooter className="mt-4 flex justify-between items-center p-0 pt-4 border-t border-muted-foreground/10">
+                                    <Skeleton className="h-4 w-24" />
+                                    <Skeleton className="h-9 w-24" />
+                                </CardFooter>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+
+                {/* Skeleton View All Button */}
+                <div className="mt-8 flex justify-center">
+                    <Skeleton className="h-10 w-32" />
                 </div>
             </div>
         );
@@ -118,55 +133,18 @@ const IdeaPage = () => {
         return <div className="container mx-auto px-4 py-8">No ideas data available</div>;
     }
 
-    const ideas = ideasData.data;
-    const allCategories = ideas.flatMap((idea) => idea.categories.map((cat) => cat.category.name));
-    const uniqueCategories = Array.from(new Set(allCategories));
-    const totalPages = ideasData.meta ? Math.ceil(ideasData.meta.total / ideasData.meta.limit) : 1;
-
-    const buildQueryString = (params: Record<string, string>) => {
-        const searchParams = new URLSearchParams();
-        if (searchTerm) searchParams.set("search", searchTerm);
-        if (selectedCategory !== "all") searchParams.set("category", selectedCategory);
-
-        Object.entries(params).forEach(([key, value]) => {
-            searchParams.set(key, value);
-        });
-
-        return searchParams.toString();
-    };
-
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-8">Browse Ideas</h1>
-
-            {/* Search and Filter Form */}
-            <form className="mb-8 flex flex-col md:flex-row gap-4" action="/" method="GET">
-                <Input placeholder="Search by keyword..." className="flex-1" name="search" defaultValue={searchTerm} />
-                <Select name="category" defaultValue={selectedCategory}>
-                    <SelectTrigger className="w-full md:w-52">
-                        <SelectValue placeholder="Filter by category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Categories</SelectItem>
-                        {uniqueCategories.map((category) => (
-                            <SelectItem key={category} value={category}>
-                                {category}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-                <input type="hidden" name="page" value="1" />
-                <Button type="submit">Search</Button>
-            </form>
+            <h1 className="text-3xl font-bold mb-8">Featured Ideas</h1>
 
             {/* Ideas Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {ideas.map((idea) => (
+                {ideasData.data.map((idea) => (
                     <Card key={idea.id} className="flex flex-col h-full p-0">
                         {/* Image */}
                         <div className="relative">
                             <ImageCarousel images={idea.images} />
-                            {idea.isPaid && <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded-md text-sm z-10">Premium</div>}
+                            {idea.isPaid && <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded-md text-sm z-10 dark:bg-black">Premium</div>}
                         </div>
 
                         {/* Content */}
@@ -209,49 +187,18 @@ const IdeaPage = () => {
                 ))}
             </div>
 
-            {ideas.length === 0 && (
+            {ideasData.data.length === 0 && (
                 <div className="text-center py-12">
-                    <p className="text-lg text-muted-foreground">No ideas found. Try different search criteria.</p>
+                    <p className="text-lg text-muted-foreground">No ideas found.</p>
                 </div>
             )}
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-                <div className="mt-8 flex justify-center">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious href={`/?${buildQueryString({ page: Math.max(1, currentPage - 1).toString() })}`} isActive={currentPage > 1} />
-                            </PaginationItem>
-
-                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                                let pageNum;
-                                if (totalPages <= 5) {
-                                    pageNum = i + 1;
-                                } else if (currentPage <= 3) {
-                                    pageNum = i + 1;
-                                } else if (currentPage >= totalPages - 2) {
-                                    pageNum = totalPages - 4 + i;
-                                } else {
-                                    pageNum = currentPage - 2 + i;
-                                }
-
-                                return (
-                                    <PaginationItem key={pageNum}>
-                                        <PaginationLink href={`/?${buildQueryString({ page: pageNum.toString() })}`} isActive={pageNum === currentPage}>
-                                            {pageNum}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                );
-                            })}
-
-                            <PaginationItem>
-                                <PaginationNext href={`/?${buildQueryString({ page: Math.min(totalPages, currentPage + 1).toString() })}`} isActive={currentPage < totalPages} />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
-                </div>
-            )}
+            {/* View All Button */}
+            <div className="mt-8 flex justify-center">
+                <Button asChild>
+                    <Link href="/ideas">View All Ideas</Link>
+                </Button>
+            </div>
         </div>
     );
 };

@@ -8,6 +8,8 @@ export async function getMainNav() {
         { title: "Ideas", href: "/ideas" },
         { title: "Blog", href: "/blog" },
         { title: "Dashboard", href: "/dashboard" },
+        { title: "About Us", href: "/about" },
+        { title: "Contact", href: "/contact" },
         { title: "Login", href: "/login" },
         { title: "Register", href: "/register" },
     ];
@@ -16,6 +18,8 @@ export async function getMainNav() {
         { title: "Ideas", href: "/ideas" },
         { title: "Blog", href: "/blog" },
         { title: "Dashboard", href: "/dashboard" },
+        { title: "About Us", href: "/about" },
+        { title: "Contact", href: "/contact" },
         { title: "My Profile", href: "/dashboard/profile" },
     ];
 

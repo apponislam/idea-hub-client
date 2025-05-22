@@ -1,6 +1,8 @@
 import { HeroBanner } from "@/components/Banner";
+import FAQSection from "@/components/FAQSection";
 import IdeaPage from "@/components/publicIdea";
 import IdeaPage2 from "@/components/topIdea";
+import { WhyChooseUs } from "@/components/WhyChooseUs";
 import React from "react";
 
 const page = () => {
@@ -9,6 +11,8 @@ const page = () => {
             <HeroBanner></HeroBanner>
             <IdeaPage></IdeaPage>
             <IdeaPage2></IdeaPage2>
+            <FAQSection></FAQSection>
+            <WhyChooseUs></WhyChooseUs>
         </div>
     );
 };
