@@ -14,17 +14,25 @@ export function SiteFooter() {
                         <h3 className="text-lg font-semibold">Sustainability Idea Hub</h3>
                         <p className="text-sm text-muted-foreground">Empowering communities to share and implement sustainable ideas for a greener future.</p>
                         <div className="flex space-x-4">
-                            <Button variant="ghost" size="icon" aria-label="Twitter">
-                                <Twitter className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" aria-label="Twitter" asChild>
+                                <Link href="https://x.com/Appon2003" target="_blank" rel="noopener noreferrer">
+                                    <Twitter className="h-4 w-4" />
+                                </Link>
                             </Button>
-                            <Button variant="ghost" size="icon" aria-label="Facebook">
-                                <Facebook className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" aria-label="Facebook" asChild>
+                                <Link href="https://facebook.com/appon19" target="_blank" rel="noopener noreferrer">
+                                    <Facebook className="h-4 w-4" />
+                                </Link>
                             </Button>
-                            <Button variant="ghost" size="icon" aria-label="LinkedIn">
-                                <Linkedin className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" aria-label="LinkedIn" asChild>
+                                <Link href="https://www.linkedin.com/in/apponislam" target="_blank" rel="noopener noreferrer">
+                                    <Linkedin className="h-4 w-4" />
+                                </Link>
                             </Button>
-                            <Button variant="ghost" size="icon" aria-label="Instagram">
-                                <Instagram className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" aria-label="Instagram" asChild>
+                                <Link href="https://www.instagram.com/apponislam" target="_blank" rel="noopener noreferrer">
+                                    <Instagram className="h-4 w-4" />
+                                </Link>
                             </Button>
                         </div>
                     </div>
@@ -61,22 +69,22 @@ export function SiteFooter() {
                         <h3 className="text-lg font-semibold">Categories</h3>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
-                                <Link href="/categories/energy" className="hover:text-primary transition-colors">
+                                <Link href="/ideas" className="hover:text-primary transition-colors">
                                     Energy
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/waste" className="hover:text-primary transition-colors">
+                                <Link href="/ideas" className="hover:text-primary transition-colors">
                                     Waste
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/transportation" className="hover:text-primary transition-colors">
+                                <Link href="/ideas" className="hover:text-primary transition-colors">
                                     Transportation
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/all" className="hover:text-primary transition-colors">
+                                <Link href="/ideas" className="hover:text-primary transition-colors">
                                     View All
                                 </Link>
                             </li>
