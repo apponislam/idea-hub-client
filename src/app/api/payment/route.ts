@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         }
 
         // 3. Forward to payment backend
-        const backendResponse = await fetch("https://idea-hub-server.vercel.app/api/v1/payment", {
+        const backendResponse = await fetch("http://localhost:5000/api/v1/payment", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

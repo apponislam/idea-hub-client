@@ -31,7 +31,7 @@ async function getMembers(): Promise<Member[]> {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch("https://idea-hub-server.vercel.app/api/v1/user", {
+    const res = await fetch("http://localhost:5000/api/v1/user", {
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
         },

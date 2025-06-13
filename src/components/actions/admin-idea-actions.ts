@@ -15,7 +15,7 @@ export async function getAdminIdeas(filters: { page?: number; limit?: number; se
     if (filters.status) queryParams.append("status", filters.status);
     if (filters.isPaid !== undefined) queryParams.append("isPaid", filters.isPaid.toString());
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/adminideas?${queryParams.toString()}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/idea/adminideas?${queryParams.toString()}`, {
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
         },
@@ -31,7 +31,7 @@ export async function updateIdeaStatus(ideaId: string, status: string, rejection
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/${ideaId}/status`, {
+        const res = await fetch(`http://localhost:5000/api/v1/idea/${ideaId}/status`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

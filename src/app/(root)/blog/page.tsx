@@ -2,6 +2,7 @@ import { BlogPost } from "@/app/types/blogs";
 import { getBlogData } from "@/components/actions/blogs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function BlogPage() {
     const { posts } = await getBlogData();
@@ -52,9 +53,9 @@ function BlogCard({ post }: { post: BlogPost }) {
                     <span>❤️ {post.stats.likes.toLocaleString()}</span>
                     <span>💬 {post.stats.comments.toLocaleString()}</span>
                 </div>
-                <a href={`/blog/${post.id}`} className="text-sm font-medium hover:underline">
+                <Link href={`/blog/${post.id}`} className="text-sm font-medium hover:underline">
                     Read more →
-                </a>
+                </Link>
             </CardFooter>
         </Card>
     );

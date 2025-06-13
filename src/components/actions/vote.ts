@@ -21,7 +21,7 @@ export const submitVote = async (ideaId: string, voteType: VoteType): Promise<Vo
         throw new Error("Not authenticated");
     }
 
-    const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/vote/${ideaId}`, {
+    const response = await fetch(`http://localhost:5000/api/v1/vote/${ideaId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export const getCurrentVote = async (ideaId: string): Promise<VoteResponse2> => 
         };
     }
 
-    const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/vote/${ideaId}`, {
+    const response = await fetch(`http://localhost:5000/api/v1/vote/${ideaId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

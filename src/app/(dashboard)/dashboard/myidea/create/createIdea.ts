@@ -17,7 +17,7 @@ export async function createIdea(values: IdeaFormValues, status: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch("https://idea-hub-server.vercel.app/api/v1/idea", {
+    const res = await fetch("http://localhost:5000/api/v1/idea", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

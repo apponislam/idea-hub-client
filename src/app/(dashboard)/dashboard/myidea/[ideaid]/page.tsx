@@ -44,7 +44,7 @@ async function getIdea(ideaId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/my-ideas/${ideaId}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/idea/my-ideas/${ideaId}`, {
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
         },

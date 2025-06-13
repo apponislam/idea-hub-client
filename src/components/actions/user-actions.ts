@@ -7,7 +7,7 @@ export async function updateUserRole(userId: string, newRole: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/role`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user/${userId}/role`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function activateUser(userId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/activate`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user/${userId}/activate`, {
         method: "PATCH",
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
@@ -43,7 +43,7 @@ export async function deactivateUser(userId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/deactivate`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user/${userId}/deactivate`, {
         method: "PATCH",
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
@@ -59,7 +59,7 @@ export async function deleteUser(userId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}/delete`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user/${userId}/delete`, {
         method: "DELETE",
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
@@ -75,7 +75,7 @@ export async function getUsers() {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user`, {
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
         },
@@ -91,7 +91,7 @@ export async function getUser(userId: string) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
-    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/user/${userId}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/user/${userId}`, {
         headers: {
             Cookie: `next-auth.session-token=${sessionToken}`,
         },

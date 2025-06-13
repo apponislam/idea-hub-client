@@ -1,4 +1,4 @@
-import { Home, Lightbulb, List, ShoppingCart, User, Users } from "lucide-react";
+import { Home, Lightbulb, List, Repeat2, ShoppingCart, User, Users } from "lucide-react";
 import Link from "next/link";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { getServerSession } from "next-auth";
@@ -29,6 +29,12 @@ export const allItems = [
         url: "/dashboard/manageideas",
         icon: Lightbulb,
         roles: ["ADMIN"],
+    },
+    {
+        title: "Manage Blogs",
+        url: "/dashboard/manageblogs",
+        icon: Repeat2,
+        roles: ["MEMBER", "ADMIN"],
     },
     {
         title: "Manage Users",

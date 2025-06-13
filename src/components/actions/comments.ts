@@ -11,7 +11,7 @@ export const createComment = async (ideaId: string, content: string, parentComme
         throw new Error("Not authenticated");
     }
 
-    const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/comment/${ideaId}`, {
+    const response = await fetch(`http://localhost:5000/api/v1/comment/${ideaId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const deleteComment = async (commentId: string, ideaId: string) => {
         throw new Error("Not authenticated");
     }
 
-    const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/comment/${commentId}`, {
+    const response = await fetch(`http://localhost:5000/api/v1/comment/${commentId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
