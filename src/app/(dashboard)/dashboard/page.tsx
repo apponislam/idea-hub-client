@@ -1,37 +1,3 @@
-// import { getServerSession } from "next-auth";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { authOptions } from "@/lib/authOptions";
-
-// const page = async () => {
-//     const session = await getServerSession(authOptions);
-
-//     return (
-//         <div className="p-6">
-//             <Card>
-//                 <CardHeader>
-//                     <CardTitle>Welcome back, {session?.user?.name}</CardTitle>
-//                 </CardHeader>
-//                 <CardContent>
-//                     <div className="flex items-center space-x-4">
-//                         <Avatar>
-//                             <AvatarImage src={session?.user?.image || "/default-avatar.png"} alt="User Avatar" />
-//                             <AvatarFallback>U</AvatarFallback>
-//                         </Avatar>
-//                         <div>
-//                             <h2 className="text-xl font-semibold">{session?.user?.name}</h2>
-//                             <p className="text-gray-500">{session?.user?.email}</p>
-//                         </div>
-//                     </div>
-//                 </CardContent>
-//             </Card>
-//         </div>
-//     );
-// };
-
-// export default page;
-
-// app/dashboard/page.tsx
 import { getServerSession } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +5,6 @@ import { authOptions } from "@/lib/authOptions";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { getUser } from "@/components/actions/user-actions";
-import { PieChart } from "./pie-chart";
 import { allItems } from "@/components/app-sidebar";
 
 export default async function DashboardPage() {
@@ -62,14 +27,16 @@ export default async function DashboardPage() {
             votes: 0,
             comments: 0,
             payments: 0,
+            blogs: 0,
         },
     };
 
-    const pieData = [
-        { name: "Ideas", value: user._count.ideas },
-        { name: "Votes", value: user._count.votes },
-        { name: "Comments", value: user._count.comments },
-        { name: "Purchases", value: user._count.payments },
+    const stats = [
+        { name: "Ideas", value: user._count.ideas, color: "bg-blue-500" },
+        { name: "Votes", value: user._count.votes, color: "bg-green-500" },
+        { name: "Comments", value: user._count.comments, color: "bg-yellow-500" },
+        { name: "Purchases", value: user._count.payments, color: "bg-orange-500" },
+        { name: "Blogs", value: user._count.blogs, color: "bg-purple-500" },
     ];
 
     const filteredItems = allItems.filter((item) => item.roles.includes(user.role));
@@ -100,13 +67,22 @@ export default async function DashboardPage() {
 
             {/* Stats Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Pie Chart Card */}
+                {/* Stats Cards */}
                 <Card>
                     <CardHeader>
                         <CardTitle>Your Activity</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[300px]">
-                        <PieChart data={pieData} />
+                    <CardContent>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            {stats.map((stat) => (
+                                <div key={stat.name} className="flex flex-col items-center p-4 rounded-lg border">
+                                    <div className={`w-12 h-12 ${stat.color} rounded-full flex items-center justify-center text-white mb-2`}>
+                                        <span className="text-xl font-bold">{stat.value}</span>
+                                    </div>
+                                    <span className="text-sm font-medium">{stat.name}</span>
+                                </div>
+                            ))}
+                        </div>
                     </CardContent>
                 </Card>
 
