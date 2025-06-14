@@ -33,7 +33,7 @@ export async function createBlog(blogData: {
             throw new Error(error.message || "Failed to create blog");
         }
 
-        revalidatePath("/dashboard/manageblogs");
+        revalidatePath("/dashboard/myblogs");
         return await response.json();
     } catch (error) {
         return {
@@ -43,12 +43,12 @@ export async function createBlog(blogData: {
     }
 }
 
-export const getMyBlogs = async (): Promise<BlogApiResponse> => {
+export const getMyBlogs = async (page: number = 1, limit: number = 10): Promise<BlogApiResponse> => {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch("http://localhost:5000/api/v1/blog/my-blogs", {
+        const response = await fetch(`http://localhost:5000/api/v1/blog/my-blogs?page=${page}&limit=${limit}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -101,7 +101,7 @@ export async function updateBlog(
             throw new Error(error.message || "Failed to update blog");
         }
 
-        revalidatePath("/dashboard/manageblogs");
+        revalidatePath("/dashboard/myblogs");
         return await response.json();
     } catch (error) {
         return {
@@ -157,7 +157,7 @@ export async function deleteBlog(blogId: string) {
             throw new Error(error.message || "Failed to delete blog");
         }
 
-        revalidatePath("/dashboard/manageblogs");
+        revalidatePath("/dashboard/myblogs");
         return { success: true };
     } catch (error) {
         return {
@@ -166,3 +166,105 @@ export async function deleteBlog(blogId: string) {
         };
     }
 }
+
+// For admin users
+export const getAdminBlogs = async (page: number = 1, limit: number = 10): Promise<BlogApiResponse> => {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("next-auth.session-token")?.value;
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/v1/blog/admin/blogs?page=${page}&limit=${limit}`, {
+            method: "GET",
+            headers: {
+                Cookie: `next-auth.session-token=${sessionToken}`,
+            },
+            cache: "no-store",
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch admin blogs");
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching admin blogs:", error);
+        throw error;
+    }
+};
+
+export async function getSingleBlogForAdmin(blogId: string): Promise<BlogPost2> {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("next-auth.session-token")?.value;
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/v1/blog/admin/blogs/${blogId}`, {
+            method: "GET",
+            headers: {
+                Cookie: `next-auth.session-token=${sessionToken}`,
+                "Content-Type": "application/json",
+            },
+            cache: "no-store",
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "Failed to fetch blog");
+        }
+
+        const responseData = await response.json();
+
+        if (!responseData.data) {
+            throw new Error("Blog data not found in response");
+        }
+
+        return responseData.data as BlogPost2;
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+        throw error;
+    }
+}
+
+// PUBLIC API
+
+export const getPublicBlogs = async (page: number = 1, limit: number = 10): Promise<BlogApiResponse> => {
+    try {
+        const response = await fetch(`http://localhost:5000/api/v1/blog?page=${page}&limit=${limit}`, {
+            method: "GET",
+            cache: "no-store",
+            next: { tags: ["blogs"], revalidate: 0 },
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "Failed to fetch blogs");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching public blogs:", error);
+        throw error;
+    }
+};
+
+export const getSinglePublicBlog = async (blogId: string): Promise<BlogApiResponse> => {
+    try {
+        const response = await fetch(`http://localhost:5000/api/v1/blog/public/${blogId}`, {
+            method: "GET",
+            cache: "no-store",
+            next: { tags: [`blog-${blogId}`], revalidate: 0 },
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "Failed to fetch blog");
+        }
+
+        const responseData = await response.json();
+
+        if (!responseData) {
+            throw new Error("Blog data not found in response");
+        }
+
+        return responseData;
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+        throw error;
+    }
+};

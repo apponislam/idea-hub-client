@@ -14,7 +14,6 @@ import { toast } from "sonner";
 import { ArrowLeft, Loader2, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { getSingleBlog, updateBlog } from "../actions/blogActions";
-import { BlogPost2 } from "@/app/types/blogs";
 
 const formSchema = z.object({
     title: z.string().min(5, "Title must be at least 5 characters"),
@@ -75,7 +74,7 @@ export default function UpdateBlogForm() {
             } catch (error) {
                 console.log(error);
                 toast.error("Failed to load blog data");
-                router.push("/dashboard/manageblogs");
+                router.push("/dashboard/myblogs");
             } finally {
                 setIsLoading(false);
             }
@@ -104,6 +103,7 @@ export default function UpdateBlogForm() {
             form.setValue("coverImage", data.secure_url);
             event.target.value = "";
         } catch (error) {
+            console.log(error);
             toast.error("Image upload failed. Please try again.");
         } finally {
             setIsUploading(false);
@@ -133,7 +133,7 @@ export default function UpdateBlogForm() {
             await updateBlog(params.blogId, blogData);
 
             toast.success("Blog updated successfully!");
-            router.push("/dashboard/manageblogs");
+            router.push("/dashboard/myblogs");
         } catch (error) {
             toast.error(error instanceof Error ? error.message : "Failed to update blog");
         } finally {
@@ -335,7 +335,7 @@ export default function UpdateBlogForm() {
                     </div>
 
                     <div className="flex justify-end gap-4">
-                        <Button type="button" variant="outline" onClick={() => router.push("/dashboard/manageblogs")}>
+                        <Button type="button" variant="outline" onClick={() => router.push("/dashboard/myblogs")}>
                             Cancel
                         </Button>
                         <Button type="submit" disabled={isSubmitting}>

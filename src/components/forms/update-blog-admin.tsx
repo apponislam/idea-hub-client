@@ -1,4 +1,5 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,12 +8,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { createBlog } from "../actions/blogActions";
+import { getSingleBlogForAdmin, updateBlog } from "../actions/blogActions";
 
 const formSchema = z.object({
     title: z.string().min(5, "Title must be at least 5 characters"),
@@ -25,10 +26,13 @@ const formSchema = z.object({
     seoKeywords: z.array(z.string()).min(1, "Please add at least one keyword"),
 });
 
-export default function BlogForm() {
+export default function UpdateBlogForm2() {
     const router = useRouter();
+    const params = useParams<{ blogId: string }>();
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -43,6 +47,41 @@ export default function BlogForm() {
             seoKeywords: [],
         },
     });
+
+    // Fetch blog data
+    useEffect(() => {
+        const fetchBlog = async () => {
+            try {
+                const blog = await getSingleBlogForAdmin(params.blogId);
+                // console.log(response);
+                // const blog = response.data as BlogPost2;
+
+                console.log(blog);
+
+                if (blog) {
+                    console.log("hii");
+                    form.reset({
+                        title: blog.title,
+                        content: blog.content,
+                        excerpt: blog.excerpt,
+                        coverImage: blog.coverImage,
+                        category: blog.category,
+                        tags: blog.tags,
+                        seoDescription: blog.seo.description,
+                        seoKeywords: blog.seo.keywords,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error("Failed to load blog data");
+                router.push("/dashboard/manageblogs");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchBlog();
+    }, [params.blogId, form, router]);
 
     const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -71,10 +110,13 @@ export default function BlogForm() {
         }
     };
 
+    const removeImage = () => {
+        form.setValue("coverImage", "");
+    };
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
         try {
-            // Prepare data for the action
             const blogData = {
                 title: values.title,
                 content: values.content,
@@ -88,22 +130,34 @@ export default function BlogForm() {
                 },
             };
 
-            // Call the server action
-            await createBlog(blogData);
+            await updateBlog(params.blogId, blogData);
 
-            // Handle success
-            toast.success("Blog created successfully!");
-            router.push("/dashboard/myblogs");
+            toast.success("Blog updated successfully!");
+            router.push("/dashboard/manageblogs");
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Failed to create blog");
+            toast.error(error instanceof Error ? error.message : "Failed to update blog");
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto py-8 max-w-4xl">
-            <h1 className="text-3xl font-bold mb-6">Create New Blog Post</h1>
+            <div className="flex items-center gap-4 mb-6">
+                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => router.back()}>
+                    <ArrowLeft className="h-4 w-4" />
+                    <span className="sr-only">Back</span>
+                </Button>
+                <h1 className="text-3xl font-bold">Update Blog Post</h1>
+            </div>
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -130,7 +184,7 @@ export default function BlogForm() {
                             <FormItem>
                                 <FormLabel>Content</FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Write your blog content here. You can use markdown formatting..." className="min-h-[300px]" {...field} />
+                                    <Textarea placeholder="Write your blog content here..." className="min-h-[300px]" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -163,8 +217,13 @@ export default function BlogForm() {
                                     <div className="flex flex-col gap-2">
                                         <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={isUploading} />
                                         {field.value && (
-                                            <div className="relative h-64 w-full rounded-md overflow-hidden border">
-                                                <Image src={field.value} alt="Blog cover preview" fill className="object-cover" />
+                                            <div className="relative group">
+                                                <div className="relative h-64 w-full rounded-md overflow-hidden border">
+                                                    <Image src={field.value} alt="Blog cover preview" fill className="object-cover" />
+                                                </div>
+                                                <Button type="button" variant="destructive" size="sm" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity" onClick={removeImage}>
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
                                             </div>
                                         )}
                                     </div>
@@ -213,6 +272,7 @@ export default function BlogForm() {
                                             const tags = e.target.value.split(",").map((tag) => tag.trim());
                                             field.onChange(tags);
                                         }}
+                                        value={field.value?.join(", ")}
                                     />
                                 </FormControl>
                                 <div className="flex flex-wrap gap-2 mt-2">
@@ -258,6 +318,7 @@ export default function BlogForm() {
                                                 const keywords = e.target.value.split(",").map((kw) => kw.trim());
                                                 field.onChange(keywords);
                                             }}
+                                            value={field.value?.join(", ")}
                                         />
                                     </FormControl>
                                     <div className="flex flex-wrap gap-2 mt-2">
@@ -274,12 +335,12 @@ export default function BlogForm() {
                     </div>
 
                     <div className="flex justify-end gap-4">
-                        <Button type="button" variant="outline" onClick={() => router.push("/dashboard/myblogs")}>
+                        <Button type="button" variant="outline" onClick={() => router.push("/dashboard/manageblogs")}>
                             Cancel
                         </Button>
                         <Button type="submit" disabled={isSubmitting}>
                             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Publish Blog
+                            Update Blog
                         </Button>
                     </div>
                 </form>

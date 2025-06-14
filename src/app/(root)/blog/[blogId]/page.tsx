@@ -1,27 +1,57 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getBlogData } from "@/components/actions/blogs";
 import Link from "next/link";
+// import { Eye } from "lucide-react";
+import { getSinglePublicBlog } from "@/components/actions/blogActions";
+import { ViewCounter } from "../ViewCounter";
 
-export async function generateStaticParams() {
-    const { posts } = await getBlogData();
-    return posts.map((post) => ({
-        blogId: post.id,
-    }));
+interface BlogPost {
+    id: string;
+    title: string;
+    content: string;
+    excerpt: string;
+    coverImage: string;
+    category: string;
+    tags: string[];
+    publishedAt: string;
+    updatedAt: string;
+    views: number;
+    isDeleted: boolean;
+    seo: {
+        keywords: string[];
+        description: string;
+    };
+    authorId: string;
+    createdAt: string;
+    author: {
+        id: string;
+        name: string;
+        email: string;
+        image: string;
+    };
 }
+
+interface ApiResponse {
+    success: boolean;
+    message: string;
+    data: BlogPost;
+}
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type Params = Promise<{ blogId: string }>;
 
 export default async function BlogPostPage({ params }: { params: Params }) {
-    const { posts } = await getBlogData();
-
     const { blogId } = await params;
 
-    const post = posts.find((post) => post.id === blogId);
+    const response = (await getSinglePublicBlog(blogId)) as ApiResponse;
 
-    if (!post) {
+    if (!response.success || !response.data) {
         return notFound();
     }
+
+    const post = response.data;
 
     return (
         <article className="max-w-4xl mx-auto py-8 px-4">
@@ -29,8 +59,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             <header className="mb-8">
                 <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
+                {/* Author Info */}
                 <div className="flex items-center gap-4 mb-6">
-                    <Image src={post.author.avatar} alt={post.author.name} width={48} height={48} className="rounded-full" />
+                    <Image src={post.author.image} alt={post.author.name} width={48} height={48} className="rounded-full" priority />
                     <div>
                         <p className="font-medium">{post.author.name}</p>
                         <p className="text-sm text-muted-foreground">
@@ -38,66 +69,47 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric",
-                            })}{" "}
-                            · {post.readingTime}
+                            })}
+                            <span className="mx-2">•</span>
+                            {Math.ceil(post.content.length / 1000)} min read
                         </p>
                     </div>
                 </div>
 
+                {/* Cover Image */}
                 <div className="relative h-96 w-full rounded-lg overflow-hidden mb-6">
-                    <Image src={post.coverImage.url} alt={post.coverImage.alt} fill className="object-cover" priority />
+                    <Image src={post.coverImage} alt={post.title} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                 </div>
             </header>
 
             {/* Content Section */}
-            <section className="prose prose-lg dark:prose-invert max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
-            </section>
+            <section className="prose prose-lg dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
 
             {/* Footer Section */}
             <footer className="mt-12 pt-6 border-t">
+                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                    {post.tags.map((tag) => (
-                        <span key={tag} className="bg-secondary px-3 py-1 rounded-full text-sm">
+                    {post.tags.map((tag, index) => (
+                        <span key={index} className="bg-secondary px-3 py-1 rounded-full text-sm">
                             {tag}
                         </span>
                     ))}
                 </div>
 
+                {/* Views and Back Link */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1">
-                            <EyeIcon className="w-4 h-4" />
-                            {post.stats.views.toLocaleString()} views
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <HeartIcon className="w-4 h-4" />
-                            {post.stats.likes.toLocaleString()} likes
-                        </span>
+                        {/* <span className="flex items-center gap-1 text-sm">
+                            <Eye className="w-4 h-4" />
+                            {post.views.toLocaleString()} views
+                        </span> */}
+                        <ViewCounter initialViews={post.views} />
                     </div>
-                    <Link href="/blog" className="text-sm font-medium hover:underline">
-                        ← Back to all posts
+                    <Link href="/blog" className="text-sm font-medium hover:underline flex items-center gap-1">
+                        <span>←</span> Back to all posts
                     </Link>
                 </div>
             </footer>
         </article>
-    );
-}
-
-// Simple icon components (replace with your actual icons)
-function EyeIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
-            <circle cx="12" cy="12" r="3" />
-        </svg>
-    );
-}
-
-function HeartIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg>
     );
 }

@@ -11,8 +11,6 @@ import { BlogPost2 } from "@/app/types/blogs";
 import { deleteBlog } from "@/components/actions/blogActions";
 
 export function BlogCard({ post }: { post: BlogPost2 }) {
-    console.log(post);
-
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -70,13 +68,13 @@ export function BlogCard({ post }: { post: BlogPost2 }) {
                 </div>
 
                 <div className="flex gap-2">
-                    <Link href={`/dashboard/manageblogs/${post.id}`} passHref>
+                    <Link href={`/dashboard/myblogs/${post.id}`} passHref>
                         <Button variant="ghost" size="sm">
                             Read more →
                         </Button>
                     </Link>
 
-                    <Link href={`/dashboard/manageblogs/update/${post.id}`} passHref>
+                    <Link href={`/dashboard/myblogs/update/${post.id}`} passHref>
                         <Button variant="outline" size="sm" className="gap-1">
                             <Edit className="h-3 w-3" />
                             Edit
@@ -99,7 +97,7 @@ export function BlogCard({ post }: { post: BlogPost2 }) {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        {/* <AlertDialogAction onClick={handleDelete} disabled={isDeleting} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                        <AlertDialogAction onClick={handleDelete} disabled={isDeleting} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
                             {isDeleting ? (
                                 <>
                                     <Trash2 className="h-4 w-4 mr-2 animate-pulse" />
@@ -111,20 +109,6 @@ export function BlogCard({ post }: { post: BlogPost2 }) {
                                     Delete
                                 </>
                             )}
-                        </AlertDialogAction> */}
-                        <AlertDialogAction
-                            onClick={handleDelete}
-                            disabled={isDeleting}
-                            className={
-                                isDeleting
-                                    ? "bg-destructive/80 text-white" // Force white text in both modes
-                                    : "bg-destructive text-white hover:bg-destructive/90 dark:hover:bg-destructive/80"
-                            }
-                        >
-                            <div className="flex items-center">
-                                <Trash2 className={`h-4 w-4 mr-2 ${isDeleting ? "animate-pulse" : ""}`} />
-                                <span>{isDeleting ? "Deleting..." : "Delete"}</span>
-                            </div>
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

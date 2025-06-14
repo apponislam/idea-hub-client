@@ -1,25 +1,32 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getAdminBlogs } from "@/components/actions/blogActions";
+import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { getMyBlogs } from "@/components/actions/blogActions";
+import { BlogCard } from "./MyBlogCards";
 import { BlogApiResponse } from "@/app/types/blogs";
 import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
-import { BlogCard } from "./MyBlogCards";
 
 type SearchParams = Promise<{ page?: string }>;
 
 const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
     const { page } = await searchParams;
     const currentPage = parseInt(page || "1", 10);
-    const response = (await getAdminBlogs(currentPage)) as BlogApiResponse;
+    const response = (await getMyBlogs(currentPage)) as BlogApiResponse;
     const posts = Array.isArray(response.data) ? response.data : [response.data];
     const meta = response.meta;
 
     return (
         <div className="p-4 container mx-auto">
+            <Link href="/dashboard/myblogs/create">
+                <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create New Blog Post
+                </Button>
+            </Link>
+
             <div className="py-8">
-                <h1 className="text-3xl font-bold mb-8">All Blogs Posts</h1>
+                <h1 className="text-3xl font-bold mb-8">My Blog Posts</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {posts.map((post) => (

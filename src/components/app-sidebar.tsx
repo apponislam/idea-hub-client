@@ -25,21 +25,27 @@ export const allItems = [
         roles: ["MEMBER", "ADMIN"],
     },
     {
+        title: "My Blogs",
+        url: "/dashboard/myblogs",
+        icon: Repeat2,
+        roles: ["MEMBER", "ADMIN"],
+    },
+    {
         title: "Manage Ideas",
         url: "/dashboard/manageideas",
         icon: Lightbulb,
         roles: ["ADMIN"],
     },
     {
-        title: "Manage Blogs",
-        url: "/dashboard/manageblogs",
-        icon: Repeat2,
-        roles: ["MEMBER", "ADMIN"],
-    },
-    {
         title: "Manage Users",
         url: "/dashboard/manageusers",
         icon: Users,
+        roles: ["ADMIN"],
+    },
+    {
+        title: "Manage Blogs",
+        url: "/dashboard/manageblogs",
+        icon: Repeat2,
         roles: ["ADMIN"],
     },
     {
