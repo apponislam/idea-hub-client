@@ -11,7 +11,7 @@ export async function GET(req: Request) {
             return NextResponse.json({ success: false, message: "Order ID is required" }, { status: 400 });
         }
 
-        const verifyResponse = await fetch(`http://localhost:5000/api/v1/payment/verify?order_id=${orderId}`);
+        const verifyResponse = await fetch(`https://idea-hub-server.vercel.app/api/v1/payment/verify?order_id=${orderId}`);
 
         if (!verifyResponse.ok) {
             throw new Error("Verification failed");

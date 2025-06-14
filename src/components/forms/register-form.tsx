@@ -59,7 +59,7 @@ export function RegisterForm() {
     async function onSubmit(values: z.infer<typeof registerSchema>) {
         setIsSubmitting(true);
         try {
-            const res = await fetch("http://localhost:5000/api/v1/user/register", {
+            const res = await fetch("https://idea-hub-server.vercel.app/api/v1/user/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

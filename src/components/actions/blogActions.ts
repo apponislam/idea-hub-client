@@ -19,7 +19,7 @@ export async function createBlog(blogData: {
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch("http://localhost:5000/api/v1/blog", {
+        const response = await fetch("https://idea-hub-server.vercel.app/api/v1/blog", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const getMyBlogs = async (page: number = 1, limit: number = 10): Promise<
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/my-blogs?page=${page}&limit=${limit}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/my-blogs?page=${page}&limit=${limit}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -87,7 +87,7 @@ export async function updateBlog(
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/${blogId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/${blogId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export async function getSingleBlog(blogId: string): Promise<BlogPost2> {
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/my-blogs/${blogId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/my-blogs/${blogId}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -144,7 +144,7 @@ export async function deleteBlog(blogId: string) {
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/${blogId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/${blogId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -173,7 +173,7 @@ export const getAdminBlogs = async (page: number = 1, limit: number = 10): Promi
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/admin/blogs?page=${page}&limit=${limit}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/admin/blogs?page=${page}&limit=${limit}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -194,7 +194,7 @@ export async function getSingleBlogForAdmin(blogId: string): Promise<BlogPost2> 
     const sessionToken = cookieStore.get("next-auth.session-token")?.value;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/admin/blogs/${blogId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/admin/blogs/${blogId}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -225,7 +225,7 @@ export async function getSingleBlogForAdmin(blogId: string): Promise<BlogPost2> 
 
 export const getPublicBlogs = async (page: number = 1, limit: number = 10): Promise<BlogApiResponse> => {
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog?page=${page}&limit=${limit}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog?page=${page}&limit=${limit}`, {
             method: "GET",
             cache: "no-store",
             next: { tags: ["blogs"], revalidate: 0 },
@@ -245,7 +245,7 @@ export const getPublicBlogs = async (page: number = 1, limit: number = 10): Prom
 
 export const getSinglePublicBlog = async (blogId: string): Promise<BlogApiResponse> => {
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/blog/public/${blogId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/blog/public/${blogId}`, {
             method: "GET",
             cache: "no-store",
             next: { tags: [`blog-${blogId}`], revalidate: 0 },

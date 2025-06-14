@@ -12,7 +12,7 @@ export const verifyPurchaseAndRedirect = async (ideaId: string) => {
 
     try {
         // Check if user has purchased this idea
-        const response = await fetch(`http://localhost:5000/api/v1/payment/my-purchases/${ideaId}`, {
+        const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/payment/my-purchases/${ideaId}`, {
             method: "GET",
             headers: {
                 Cookie: `next-auth.session-token=${sessionToken}`,
@@ -46,7 +46,7 @@ export const getMyPurchases = async () => {
         throw new Error("Not authenticated");
     }
 
-    const response = await fetch(`http://localhost:5000/api/v1/payment/my-purchases`, {
+    const response = await fetch(`https://idea-hub-server.vercel.app/api/v1/payment/my-purchases`, {
         headers: {
             "Content-Type": "application/json",
             Cookie: `next-auth.session-token=${sessionToken}`,

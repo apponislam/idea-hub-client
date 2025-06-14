@@ -60,7 +60,7 @@ export default function ManageIdeasPage() {
             if (status !== "ALL") queryParams.set("status", status);
             if (isPaid) queryParams.set("isPaid", "true");
 
-            const res = await fetch(`http://localhost:5000/api/v1/idea/adminideas?${queryParams.toString()}`, {
+            const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/adminideas?${queryParams.toString()}`, {
                 next: { tags: ["adminideas"] },
             });
             const data = await res.json();

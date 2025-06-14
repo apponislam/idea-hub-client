@@ -11,7 +11,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Params }) {
 
     const data = await req.json();
 
-    const res = await fetch(`http://localhost:5000/api/v1/idea/${id}`, {
+    const res = await fetch(`https://idea-hub-server.vercel.app/api/v1/idea/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

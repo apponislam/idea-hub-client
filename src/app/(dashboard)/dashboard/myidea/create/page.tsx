@@ -3,7 +3,7 @@ import React from "react";
 
 async function getCategories() {
     try {
-        const res = await fetch("http://localhost:5000/api/v1/category");
+        const res = await fetch("https://idea-hub-server.vercel.app/api/v1/category");
         if (!res.ok) {
             throw new Error("Failed to fetch categories");
         }
